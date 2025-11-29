@@ -4,7 +4,7 @@ This repository contains the complete source code for the **Smart-X Tuition Cent
 It is a fully functional, responsive, single-page website designed for tuition classes and computer courses.
 
 🌐 **Live Website:**  
-https://github.com/sandeepHP/smartx-tuition1/blob/main/smart-X.html
+https://github.com/sandeepHP/smartx-tuition1/blob/main/index.html
 
 ---
 
