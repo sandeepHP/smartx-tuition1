@@ -1,11 +1,3 @@
-<!--
-  Smart-X Tuition Center - Single File (Homepage + Admin Dashboard + Registration + Contact)
-  Instructions:
-   - Save as index.html and open in browser.
-   - To enable email notifications: sign up at https://formspree.io and replace FORMSPREE_ENDPOINT below.
-   - Admin login default: admin / smartx123
-   - Registrations are saved in localStorage under key "smartx_regs"
--->
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,36 +5,99 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Smart-X Tuition Center</title>
   <meta name="description" content="Smart-X Tuition Center - Tuition for Grades 5-10 and Computer Courses">
+  <!-- PWA meta (add manifest + icons at site root to enable install) -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0b63d1">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+
   <style>
-    :root{--sx-blue:#0b63d1;--sx-accent:#ff7a18;--muted:#6b7280}
-    body{font-family:"Poppins",sans-serif;background:#f6f9ff;margin:0;color:#111}
+    :root{
+      --sx-blue:#0b63d1;
+      --sx-accent:#ff7a18;
+      --muted:#6b7280;
+      --bg:#f6f9ff;
+      --card-shadow: 0 10px 30px rgba(2,6,23,0.06);
+    }
+
+    /* base */
+    html,body{height:100%}
+    body{font-family:"Poppins",sans-serif;background:var(--bg);margin:0;color:#111;-webkit-font-smoothing:antialiased}
+    a{color:inherit}
+    .small-muted{color:var(--muted)}
+    .btn-accent{background:var(--sx-accent);border:none;color:#fff;border-radius:10px;padding:10px 18px;font-weight:700;box-shadow:0 6px 18px rgba(255,122,24,0.12)}
+    .btn-accent:active{transform:translateY(1px)}
+
+    /* topbar + navbar */
     .topbar{background:#fff;border-bottom:1px solid rgba(11,99,209,0.04);padding:.375rem 0}
-    .navbar{background:#fff;box-shadow:0 6px 20px rgba(2,6,23,0.04)}
+    .navbar{background:#fff;box-shadow:0 6px 20px rgba(2,6,23,0.04);position:sticky;top:0;z-index:999}
     .navbar-brand{color:var(--sx-blue);font-weight:700}
+    .nav-link{font-weight:600;color:#333!important;padding:.5rem 1rem}
+
+    /* hero */
     .hero{background:linear-gradient(90deg,#082f9a,#0b63d1);color:#fff;padding:64px 0}
-    .hero h1{font-size:36px;line-height:1.05;font-weight:800}
-    .hero p{color:rgba(255,255,255,.92);margin-top:12px}
-    .btn-accent{background:var(--sx-accent);border:none;color:#fff;border-radius:8px;padding:10px 18px;font-weight:700}
-    .section{padding:48px 0}
-    .card{border-radius:12px}
-    .course-card img{height:140px;object-fit:cover}
-    #achievers img{height:220px;object-fit:cover}
-    footer{background:#fff;padding:28px 0;text-align:center;border-top:1px solid rgba(2,6,23,.04)}
-    .admin-btn{position:fixed;right:20px;bottom:20px;background:var(--sx-accent);color:#fff;border-radius:50%;width:56px;height:56px;border:none;box-shadow:0 6px 18px rgba(0,0,0,0.18)}
-    .small-muted{color:#6b7280}
+    .hero .hero-inner{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .hero h1{font-size:36px;line-height:1.05;font-weight:800;margin:0}
+    .hero p{color:rgba(255,255,255,.94);margin-top:12px;font-size:15px}
+    .hero .hero-cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+    .hero img{width:100%;max-width:480px;border-radius:14px;box-shadow:var(--card-shadow);display:block}
+
+    /* sections */
+    .section{padding:44px 0}
+    .card{border-radius:12px;box-shadow:var(--card-shadow);border:0}
+    .course-card img{height:140px;object-fit:cover;border-top-left-radius:12px;border-top-right-radius:12px}
+    #achievers .card{transition:transform .25s ease,box-shadow .25s ease}
+    #achievers .card:hover{transform:translateY(-6px)}
+    #achievers img{height:220px;object-fit:cover;border-top-left-radius:12px;border-top-right-radius:12px}
+
+    /* forms */
+    .card .form-control{border-radius:8px}
     .form-required{color:#d9534f}
-    /* responsive */
-    @media(max-width:768px){ .hero h1{font-size:26px} .hero{padding:36px 0} }
+
+    /* footer */
+    footer{background:#fff;padding:30px 0;text-align:center;border-top:1px solid rgba(2,6,23,.04)}
+    .social-icons a{margin:0 8px;color:var(--sx-blue);font-size:20px}
+    .social-icons a:hover{color:var(--sx-accent)}
+
+    /* admin button */
+    .admin-btn{position:fixed;right:18px;bottom:18px;background:var(--sx-accent);color:#fff;border-radius:50%;width:56px;height:56px;border:none;box-shadow:0 10px 30px rgba(11,99,209,0.12);z-index:1100}
+
+    /* table responsive small screens */
+    .table-responsive{max-height:60vh;overflow:auto}
+
+    /* utilities for mobile touch targets */
+    .large-touch{padding:14px 18px;border-radius:10px;font-size:16px}
+
+    /* responsive adjustments */
+    @media(max-width:992px){
+      .hero{padding:36px 0}
+      .hero h1{font-size:28px}
+      .hero .hero-inner{flex-direction:column-reverse;align-items:flex-start}
+      .hero img{max-width:420px}
+      .course-card img{height:160px}
+      #achievers img{height:180px}
+    }
+    @media(max-width:576px){
+      .hero img{max-width:100%}
+      .nav-link{padding:.5rem}
+      .hero h1{font-size:22px}
+      .course-card img{height:140px}
+      #achievers img{height:150px}
+      .social-icons a{font-size:18px;margin:0 6px}
+      .admin-btn{width:52px;height:52px}
+    }
   </style>
 </head>
 <body>
   <!-- topbar -->
   <div class="topbar">
     <div class="container d-flex justify-content-between align-items-center">
-      <div class="small-muted"><i class="fa fa-phone"></i> +91 99005 23755</div>
+      <div class="small-muted"><i class="fa fa-phone mr-1"></i> +91 99005 23755</div>
       <div><a href="#contact" class="small-muted">Book a Free Demo | Login</a></div>
     </div>
   </div>
@@ -51,9 +106,11 @@
   <nav class="navbar navbar-expand-lg">
     <div class="container">
       <a class="navbar-brand" href="#">Smart-X Tuition Center</a>
-      <button class="navbar-toggler" data-toggle="collapse" data-target="#menu"><i class="fa fa-bars"></i></button>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-label="Toggle navigation">
+        <i class="fa fa-bars"></i>
+      </button>
       <div class="collapse navbar-collapse" id="menu">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto align-items-center">
           <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
           <li class="nav-item"><a class="nav-link" href="#achievers">Best Students</a></li>
@@ -66,17 +123,18 @@
 
   <!-- Hero -->
   <header id="home" class="hero">
-    <div class="container d-flex flex-wrap align-items-center justify-content-between">
-      <div style="max-width:600px">
+    <div class="container hero-inner">
+      <div style="flex:1;min-width:240px;max-width:720px">
         <h1 id="heroTitle">Smart Learning for Smarter Minds — Tuition That Transforms</h1>
-        <p id="heroDesc">We deliver personalized attention, expert guidance and digital teaching to help your child achieve excellence.</p>
-        <div class="mt-3">
-          <button class="btn-accent mr-2" id="bookDemoBtn">Book Free Demo</button>
-          <button class="btn btn-outline-light" id="joinBtn">Join Now</button>
+        <p id="heroDesc">Personalized attention, expert tutors and digital teaching help students build confidence and get results. Small batches and 1-on-1 coaching available.</p>
+        <div class="hero-cta">
+          <button id="bookDemoBtn" class="btn-accent large-touch" aria-label="Book a free demo">Book Free Demo</button>
+          <button id="joinBtn" class="btn btn-outline-light large-touch" aria-label="Join now">Join Now</button>
         </div>
       </div>
-      <div style="max-width:480px">
-        <img id="heroImage" src="https://images.unsplash.com/photo-1600195077075-7c815b0a23ec?auto=format&fit=crop&w=800&q=80" alt="student" style="width:100%;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.2)">
+
+      <div style="width:100%;max-width:480px">
+        <img id="heroImage" src="https://images.unsplash.com/photo-1600195077075-7c815b0a23ec?auto=format&fit=crop&w=800&q=80" alt="Student studying">
       </div>
     </div>
   </header>
@@ -88,39 +146,41 @@
       <div class="row">
         <div class="col-md-4 mb-3">
           <div class="card course-card h-100">
-            <img id="c1img" class="card-img-top" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" alt="">
+            <img id="c1img" class="card-img-top" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" alt="Basic Computer">
             <div class="card-body d-flex flex-column">
               <h5 id="c1title">Basic Computer</h5>
               <p id="c1desc" class="small-muted">MS Office, Email, Typing & fundamentals.</p>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <strong id="c1fee" class="text-primary">₹7,000</strong>
-                <button class="btn btn-sm btn-primary enroll-btn" data-course="Basic Computer">Enroll</button>
+                <button class="btn btn-sm btn-primary enroll-btn" data-course="Basic Computer" aria-label="Enroll Basic Computer">Enroll</button>
               </div>
             </div>
           </div>
         </div>
+
         <div class="col-md-4 mb-3">
           <div class="card course-card h-100">
-            <img id="c2img" class="card-img-top" src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?auto=format&fit=crop&w=800&q=80" alt="">
+            <img id="c2img" class="card-img-top" src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?auto=format&fit=crop&w=800&q=80" alt="Coding Complete">
             <div class="card-body d-flex flex-column">
               <h5 id="c2title">Coding Complete</h5>
               <p id="c2desc" class="small-muted">Python, HTML, CSS, JS & projects.</p>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <strong id="c2fee" class="text-primary">₹12,000</strong>
-                <button class="btn btn-sm btn-primary enroll-btn" data-course="Coding Complete">Enroll</button>
+                <button class="btn btn-sm btn-primary enroll-btn" data-course="Coding Complete" aria-label="Enroll Coding Complete">Enroll</button>
               </div>
             </div>
           </div>
         </div>
+
         <div class="col-md-4 mb-3">
           <div class="card course-card h-100">
-            <img id="c3img" class="card-img-top" src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=800&q=80" alt="">
+            <img id="c3img" class="card-img-top" src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=800&q=80" alt="Cyber Security">
             <div class="card-body d-flex flex-column">
               <h5 id="c3title">Cyber Security</h5>
               <p id="c3desc" class="small-muted">Intro to security, safe browsing & basics.</p>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 <strong id="c3fee" class="text-primary">₹10,000</strong>
-                <button class="btn btn-sm btn-primary enroll-btn" data-course="Cyber Security">Enroll</button>
+                <button class="btn btn-sm btn-primary enroll-btn" data-course="Cyber Security" aria-label="Enroll Cyber Security">Enroll</button>
               </div>
             </div>
           </div>
@@ -136,34 +196,37 @@
       <div class="row text-center">
         <div class="col-md-3 col-sm-6 mb-3">
           <div class="card">
-            <img id="a1img" class="card-img-top" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=60" alt="">
+            <img id="a1img" class="card-img-top" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=60" alt="Aarav Kumar">
             <div class="card-body">
               <h6 id="a1name" class="mb-0">Aarav Kumar</h6>
               <small id="a1desc" class="small-muted">Class 10 — 98%</small>
             </div>
           </div>
         </div>
+
         <div class="col-md-3 col-sm-6 mb-3">
           <div class="card">
-            <img id="a2img" class="card-img-top" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=500&q=60" alt="">
+            <img id="a2img" class="card-img-top" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=500&q=60" alt="Sneha Reddy">
             <div class="card-body">
               <h6 id="a2name" class="mb-0">Sneha Reddy</h6>
               <small id="a2desc" class="small-muted">Class 9 — Topper</small>
             </div>
           </div>
         </div>
+
         <div class="col-md-3 col-sm-6 mb-3">
           <div class="card">
-            <img id="a3img" class="card-img-top" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=60" alt="">
+            <img id="a3img" class="card-img-top" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=60" alt="Ravi Sharma">
             <div class="card-body">
               <h6 id="a3name" class="mb-0">Ravi Sharma</h6>
               <small id="a3desc" class="small-muted">Class 8 — Olympiad</small>
             </div>
           </div>
         </div>
+
         <div class="col-md-3 col-sm-6 mb-3">
           <div class="card">
-            <img id="a4img" class="card-img-top" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=500&q=60" alt="">
+            <img id="a4img" class="card-img-top" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=500&q=60" alt="Ananya Gupta">
             <div class="card-body">
               <h6 id="a4name" class="mb-0">Ananya Gupta</h6>
               <small id="a4desc" class="small-muted">Class 7 — Award</small>
@@ -234,10 +297,9 @@
               </div>
 
               <!-- OPTIONAL: if you want email notifications via Formspree, set endpoint below -->
-              <!-- Replace FORMSPREE_ENDPOINT with your Formspree endpoint if you want emails -->
               <input type="hidden" id="FORMSPREE_ENDPOINT" value="https://formspree.io/f/yourFormID">
 
-              <button class="btn btn-accent" type="submit">Register</button>
+              <button class="btn btn-accent large-touch" type="submit">Register</button>
               <small class="form-text text-muted mt-2">Your submission will be saved and appear in the admin dashboard.</small>
             </form>
           </div>
@@ -247,7 +309,6 @@
         <div class="col-md-6 mb-4">
           <div class="card p-3">
             <h5 class="mb-3">Contact / Enquiry</h5>
-            <!-- This static form will POST to Formspree if you set endpoint above -->
             <form id="contactForm">
               <div class="form-group">
                 <label>Your Name</label>
@@ -262,7 +323,7 @@
                 <textarea id="contactMessage" class="form-control" rows="4" required></textarea>
               </div>
 
-              <button class="btn btn-primary" type="submit">Send Message</button>
+              <button class="btn btn-primary large-touch" type="submit">Send Message</button>
               <small class="form-text text-muted mt-2">You can receive messages by connecting this form to Formspree (see admin panel).</small>
             </form>
           </div>
@@ -300,7 +361,7 @@
           </div>
 
           <div id="adminPanel" style="display:none">
-            <!-- Edit site content (same as before) -->
+            <!-- Edit site content -->
             <h6>Hero</h6>
             <input id="editHeroTitle" class="form-control mb-2" placeholder="Hero title">
             <textarea id="editHeroDesc" class="form-control mb-2" rows="2"></textarea>
@@ -357,10 +418,10 @@
             <input id="editLn" class="form-control mb-3" placeholder="LinkedIn URL">
 
             <div class="d-flex mb-3">
-              <button id="saveChanges" class="btn btn-success mr-2">Save Changes</button>
-              <button id="openDashboard" class="btn btn-outline-primary">Open Dashboard</button>
-              <button id="exportCSV" class="btn btn-outline-secondary ml-2">Export Registrations</button>
-              <button id="clearAll" class="btn btn-danger ml-auto">Reset Local Data</button>
+              <button id="saveChanges" class="btn btn-success mr-2 large-touch">Save Changes</button>
+              <button id="openDashboard" class="btn btn-outline-primary large-touch">Open Dashboard</button>
+              <button id="exportCSV" class="btn btn-outline-secondary ml-2 large-touch">Export Registrations</button>
+              <button id="clearAll" class="btn btn-danger ml-auto large-touch">Reset Local Data</button>
             </div>
 
             <hr/>
@@ -371,7 +432,7 @@
                 <input id="changePass" type="password" class="form-control" placeholder="New password">
               </div>
               <div class="col-md-6 align-self-end">
-                <button id="savePass" class="btn btn-primary">Save Password</button>
+                <button id="savePass" class="btn btn-primary large-touch">Save Password</button>
               </div>
             </div>
 
@@ -381,10 +442,16 @@
                 <div class="modal-content">
                   <div class="modal-header"><h5>Admin Dashboard — Registrations</h5><button class="close" data-dismiss="modal">&times;</button></div>
                   <div class="modal-body">
-                    <table class="table table-sm table-striped" id="regsTable">
-                      <thead><tr><th>#</th><th>Name</th><th>Class</th><th>Course</th><th>Phone</th><th>Email</th><th>Notes</th><th>When</th><th>Action</th></tr></thead>
-                      <tbody></tbody>
-                    </table>
+                    <div class="mb-2 d-flex">
+                      <button id="exportCSVInner" class="btn btn-outline-primary mr-2">Export CSV</button>
+                      <button id="clearRegs" class="btn btn-outline-danger">Clear All Registrations</button>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-sm table-striped" id="regsTable">
+                        <thead><tr><th>#</th><th>Name</th><th>Class</th><th>Course</th><th>Phone</th><th>Email</th><th>Notes</th><th>When</th><th>Action</th></tr></thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
                     <div id="noRegs" class="text-center small-muted">No registrations yet.</div>
                   </div>
                 </div>
@@ -405,23 +472,20 @@
     // -------------------------
     // Configuration / Helpers
     // -------------------------
-    const DEFAULT_ADMIN = {user:'admin', pass:'smartx123'}; // initial credential
+    const DEFAULT_ADMIN = {user:'admin', pass:'smartx123'};
     const STORAGE_KEY = 'smartx_regs';
     const SITE_DATA_KEY = 'smartx_site';
-    const FORMSPREE_ENDPOINT_ID = 'FORMSPREE_ENDPOINT'; // element id
-    // Utility
+    const FORMSPREE_ENDPOINT_ID = 'FORMSPREE_ENDPOINT';
     const $ = id => document.getElementById(id);
     const getRegs = ()=> JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
     const saveRegs = regs => localStorage.setItem(STORAGE_KEY, JSON.stringify(regs));
-    // Persistable site data
     const getSiteData = ()=> JSON.parse(localStorage.getItem(SITE_DATA_KEY) || '{}');
     const saveSiteData = data => localStorage.setItem(SITE_DATA_KEY, JSON.stringify(data));
+    function escapeHtml(s){ if(!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function quoteCsv(s){ if(s==null) s=''; return '"'+String(s).replace(/"/g,'""')+'"'; }
 
-    // ---------------
     // Init
-    // ---------------
     document.getElementById('year').textContent = new Date().getFullYear();
-    // Load saved site data (hero/img/achievers/socials)
     (function applySavedSite(){
       const s = getSiteData();
       if(!s) return;
@@ -429,7 +493,6 @@
       if(s.heroDesc) $('heroDesc').textContent = s.heroDesc;
       if(s.heroImg) $('heroImage').src = s.heroImg;
       if(s.email) { if($('emailText')) $('emailText').textContent = s.email; }
-      // courses
       if(s.courses){
         if(s.courses[0]) {$('c1title').textContent = s.courses[0].title; $('c1fee').textContent = s.courses[0].fee;}
         if(s.courses[1]) {$('c2title').textContent = s.courses[1].title; $('c2fee').textContent = s.courses[1].fee;}
@@ -443,67 +506,60 @@
       }
     })();
 
-    // ---------------------
-    // Enrollment (Registration)
-    // ---------------------
-    document.getElementById('regForm').addEventListener('submit', function(e){
-      e.preventDefault();
-      const name = $('regName').value.trim();
-      const cls = $('regClass').value.trim();
-      const course = $('regCourse').value;
-      const phone = $('regPhone').value.trim();
-      const email = $('regEmail').value.trim();
-      const notes = $('regNotes').value.trim();
-      if(!name || !phone){ alert('Please enter student name and parent phone.'); return; }
-      const regs = getRegs();
-      const now = new Date().toISOString();
-      regs.unshift({id:Date.now(), name, cls, course, phone, email, notes, when:now});
-      saveRegs(regs);
-      alert('Registration saved. Admin can view in Dashboard.');
-      this.reset();
+    // Registration
+    if($('regForm')){
+      $('regForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        const name = $('regName').value.trim();
+        const cls = $('regClass').value.trim();
+        const course = $('regCourse').value;
+        const phone = $('regPhone').value.trim();
+        const email = $('regEmail').value.trim();
+        const notes = $('regNotes').value.trim();
+        if(!name || !phone){ alert('Please enter student name and parent phone.'); return; }
+        const regs = getRegs();
+        const now = new Date().toISOString();
+        regs.unshift({id:Date.now(), name, cls, course, phone, email, notes, when:now});
+        saveRegs(regs);
+        alert('Registration saved. Admin can view in Dashboard.');
+        this.reset();
 
-      // OPTIONAL: send to Formspree if you configured endpoint
-      const endpoint = document.getElementById(FORMSPREE_ENDPOINT_ID).value.trim();
-      if(endpoint && endpoint !== 'https://formspree.io/f/yourFormID'){
-        // basic fetch POST
-        fetch(endpoint, {
-          method:'POST',
-          headers:{'Content-Type':'application/json','Accept':'application/json'},
-          body: JSON.stringify({student:name, class:cls, course, phone, email, notes})
-        }).catch(()=>{/* ignore errors for now */});
-      }
-    });
+        const endpoint = document.getElementById(FORMSPREE_ENDPOINT_ID).value.trim();
+        if(endpoint && endpoint !== 'https://formspree.io/f/yourFormID'){
+          fetch(endpoint, {
+            method:'POST',
+            headers:{'Content-Type':'application/json','Accept':'application/json'},
+            body: JSON.stringify({student:name, class:cls, course, phone, email, notes})
+          }).catch(()=>{/* ignore errors */});
+        }
+      });
+    }
 
-    // ---------------------
     // Contact form
-    // ---------------------
-    document.getElementById('contactForm').addEventListener('submit', function(e){
-      e.preventDefault();
-      const name = $('contactName').value.trim();
-      const email = $('contactEmail').value.trim();
-      const message = $('contactMessage').value.trim();
-      if(!name || !email || !message){ alert('Please complete the contact form.'); return; }
+    if($('contactForm')){
+      $('contactForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        const name = $('contactName').value.trim();
+        const email = $('contactEmail').value.trim();
+        const message = $('contactMessage').value.trim();
+        if(!name || !email || !message){ alert('Please complete the contact form.'); return; }
+        const endpoint = document.getElementById(FORMSPREE_ENDPOINT_ID).value.trim();
+        if(endpoint && endpoint !== 'https://formspree.io/f/yourFormID'){
+          fetch(endpoint, {
+            method:'POST',
+            headers:{'Content-Type':'application/json','Accept':'application/json'},
+            body: JSON.stringify({name,email,message})
+          }).then(()=>{ alert('Message sent. We will contact you soon.'); this.reset(); })
+          .catch(()=>{ alert('Message queued locally.'); });
+        } else {
+          const subject = encodeURIComponent('Contact enquiry from ' + name);
+          const body = encodeURIComponent(message + '\n\nContact: ' + email);
+          window.location.href = `mailto:info@smartx.example?subject=${subject}&body=${body}`;
+        }
+      });
+    }
 
-      const endpoint = document.getElementById(FORMSPREE_ENDPOINT_ID).value.trim();
-      if(endpoint && endpoint !== 'https://formspree.io/f/yourFormID'){
-        fetch(endpoint, {
-          method:'POST',
-          headers:{'Content-Type':'application/json','Accept':'application/json'},
-          body: JSON.stringify({name,email,message})
-        }).then(()=>{ alert('Message sent. We will contact you soon.'); this.reset(); })
-        .catch(()=>{ alert('Message queued locally.'); });
-      } else {
-        // fallback: open mailto
-        const subject = encodeURIComponent('Contact enquiry from ' + name);
-        const body = encodeURIComponent(message + '\n\nContact: ' + email);
-        window.location.href = `mailto:info@smartx.example?subject=${subject}&body=${body}`;
-      }
-    });
-
-    // ---------------------
     // Admin login + edit site content
-    // ---------------------
-    // manage admin credentials in localStorage (simple)
     function getAdminCreds(){
       const raw = localStorage.getItem('smartx_admin');
       if(raw) try{ return JSON.parse(raw);}catch(e){}
@@ -512,26 +568,26 @@
     function setAdminPass(newpass){
       const a = getAdminCreds(); a.pass = newpass; localStorage.setItem('smartx_admin', JSON.stringify(a));
     }
-    // login reveal admin panel fields and populate with current content
-    $('adminPass').addEventListener('input', function(e){
-      const user = $('adminUser').value.trim();
-      const creds = getAdminCreds();
-      if(user === creds.user && e.target.value === creds.pass){
-        $('adminPanel').style.display = 'block';
-        // populate fields
-        $('editHeroTitle').value = $('heroTitle').textContent;
-        $('editHeroDesc').value = $('heroDesc').textContent;
-        $('editEmail').value = $('emailText') ? $('emailText').textContent : '';
-        $('editC1').value = $('c1title').textContent; $('editC1fee').value = $('c1fee').textContent;
-        $('editC2').value = $('c2title').textContent; $('editC2fee').value = $('c2fee').textContent;
-        $('editC3').value = $('c3title').textContent; $('editC3fee').value = $('c3fee').textContent;
-        for(let i=1;i<=4;i++){ $('editA'+i+'name').value = $('a'+i+'name').textContent; $('editA'+i+'desc').value = $('a'+i+'desc').textContent; }
-        // populate social links if saved
-        const s = getSiteData(); if(s.socials){ $('editFb').value=s.socials.fb||''; $('editInsta').value=s.socials.insta||''; $('editYt').value=s.socials.yt||''; $('editWa').value=s.socials.wa||''; $('editLn').value=s.socials.ln||''; }
-      } else $('adminPanel').style.display = 'none';
-    });
 
-    // helper: file->img
+    if($('adminPass')){
+      $('adminPass').addEventListener('input', function(e){
+        const user = $('adminUser').value.trim();
+        const creds = getAdminCreds();
+        if(user === creds.user && e.target.value === creds.pass){
+          $('adminPanel').style.display = 'block';
+          $('editHeroTitle').value = $('heroTitle').textContent;
+          $('editHeroDesc').value = $('heroDesc').textContent;
+          $('editEmail').value = $('emailText') ? $('emailText').textContent : '';
+          $('editC1').value = $('c1title').textContent; $('editC1fee').value = $('c1fee').textContent;
+          $('editC2').value = $('c2title').textContent; $('editC2fee').value = $('c2fee').textContent;
+          $('editC3').value = $('c3title').textContent; $('editC3fee').value = $('c3fee').textContent;
+          for(let i=1;i<=4;i++){ $('editA'+i+'name').value = $('a'+i+'name').textContent; $('editA'+i+'desc').value = $('a'+i+'desc').textContent; }
+          const s = getSiteData(); if(s.socials){ $('editFb').value=s.socials.fb||''; $('editInsta').value=s.socials.insta||''; $('editYt').value=s.socials.yt||''; $('editWa').value=s.socials.wa||''; $('editLn').value=s.socials.ln||''; }
+        } else $('adminPanel').style.display = 'none';
+      });
+    }
+
+    // file->img
     function fileToImg(fileInput, targetImgId){
       const f = fileInput.files && fileInput.files[0];
       if(!f) return Promise.resolve();
@@ -542,56 +598,50 @@
       });
     }
 
-    // save site changes
-    $('saveChanges').addEventListener('click', async ()=>{
-      // hero
-      const heroTitle = $('editHeroTitle').value.trim() || $('heroTitle').textContent;
-      const heroDesc = $('editHeroDesc').value.trim() || $('heroDesc').textContent;
-      $('heroTitle').textContent = heroTitle; $('heroDesc').textContent = heroDesc;
-      if($('editHeroImage').files[0]) await fileToImg($('editHeroImage'),'heroImage');
-      // email
-      const email = $('editEmail').value.trim(); if($('emailText')) $('emailText').textContent = email;
-      // courses
-      $('c1title').textContent = $('editC1').value || $('c1title').textContent; $('c1fee').textContent = $('editC1fee').value || $('c1fee').textContent;
-      $('c2title').textContent = $('editC2').value || $('c2title').textContent; $('c2fee').textContent = $('editC2fee').value || $('c2fee').textContent;
-      $('c3title').textContent = $('editC3').value || $('c3title').textContent; $('c3fee').textContent = $('editC3fee').value || $('c3fee').textContent;
-      // achievers images + text
-      for(let i=1;i<=4;i++){
-        const n = $('editA'+i+'name').value.trim(); const d = $('editA'+i+'desc').value.trim();
-        if(n) $('a'+i+'name').textContent = n; if(d) $('a'+i+'desc').textContent = d;
-        if($('editA'+i+'img').files[0]) await fileToImg($('editA'+i+'img'),'a'+i+'img');
-      }
-      // socials
-      const socials = { fb: $('editFb').value.trim(), insta: $('editInsta').value.trim(), yt: $('editYt').value.trim(), wa: $('editWa').value.trim(), ln: $('editLn').value.trim() };
-      $('fbLink').href = socials.fb || '#'; $('instaLink').href = socials.insta || '#'; $('ytLink').href = socials.yt || '#'; $('waLink').href = socials.wa || '#'; $('lnLink').href = socials.ln || '#';
+    if($('saveChanges')){
+      $('saveChanges').addEventListener('click', async ()=>{
+        const heroTitle = $('editHeroTitle').value.trim() || $('heroTitle').textContent;
+        const heroDesc = $('editHeroDesc').value.trim() || $('heroDesc').textContent;
+        $('heroTitle').textContent = heroTitle; $('heroDesc').textContent = heroDesc;
+        if($('editHeroImage').files[0]) await fileToImg($('editHeroImage'),'heroImage');
+        const email = $('editEmail').value.trim(); if($('emailText')) $('emailText').textContent = email;
+        $('c1title').textContent = $('editC1').value || $('c1title').textContent; $('c1fee').textContent = $('editC1fee').value || $('c1fee').textContent;
+        $('c2title').textContent = $('editC2').value || $('c2title').textContent; $('c2fee').textContent = $('editC2fee').value || $('c2fee').textContent;
+        $('c3title').textContent = $('editC3').value || $('c3title').textContent; $('c3fee').textContent = $('editC3fee').value || $('c3fee').textContent;
+        for(let i=1;i<=4;i++){
+          const n = $('editA'+i+'name').value.trim(); const d = $('editA'+i+'desc').value.trim();
+          if(n) $('a'+i+'name').textContent = n; if(d) $('a'+i+'desc').textContent = d;
+          if($('editA'+i+'img').files[0]) await fileToImg($('editA'+i+'img'),'a'+i+'img');
+        }
+        const socials = { fb: $('editFb').value.trim(), insta: $('editInsta').value.trim(), yt: $('editYt').value.trim(), wa: $('editWa').value.trim(), ln: $('editLn').value.trim() };
+        $('fbLink').href = socials.fb || '#'; $('instaLink').href = socials.insta || '#'; $('ytLink').href = socials.yt || '#'; $('waLink').href = socials.wa || '#'; $('lnLink').href = socials.ln || '#';
 
-      // save snapshot
-      const siteSnapshot = {
-        heroTitle: $('heroTitle').textContent,
-        heroDesc: $('heroDesc').textContent,
-        heroImg: $('heroImage').src,
-        email: $('emailText') ? $('emailText').textContent : '',
-        courses: [
-          {title:$('c1title').textContent, fee:$('c1fee').textContent},
-          {title:$('c2title').textContent, fee:$('c2fee').textContent},
-          {title:$('c3title').textContent, fee:$('c3fee').textContent}
-        ],
-        achievers: [1,2,3,4].map(i=>({name:$('a'+i+'name').textContent, desc:$('a'+i+'desc').textContent, img:$('a'+i+'img').src})),
-        socials
-      };
-      saveSiteData(siteSnapshot);
-      alert('Site changes saved locally.');
-      $('#adminModal').modal('hide');
-    });
+        const siteSnapshot = {
+          heroTitle: $('heroTitle').textContent,
+          heroDesc: $('heroDesc').textContent,
+          heroImg: $('heroImage').src,
+          email: $('emailText') ? $('emailText').textContent : '',
+          courses: [
+            {title:$('c1title').textContent, fee:$('c1fee').textContent},
+            {title:$('c2title').textContent, fee:$('c2fee').textContent},
+            {title:$('c3title').textContent, fee:$('c3fee').textContent}
+          ],
+          achievers: [1,2,3,4].map(i=>({name:$('a'+i+'name').textContent, desc:$('a'+i+'desc').textContent, img:$('a'+i+'img').src})),
+          socials
+        };
+        saveSiteData(siteSnapshot);
+        alert('Site changes saved locally.');
+        $('#adminModal').modal('hide');
+      });
+    }
 
-    // ---------------------
-    // Dashboard - show registrations
-    // ---------------------
+    // Dashboard
     function renderRegistrations(){
       const regs = getRegs();
       const tbody = document.querySelector('#regsTable tbody');
+      if(!tbody) return;
       tbody.innerHTML = '';
-      if(!regs.length){ $('noRegs').style.display='block'; } else { $('noRegs').style.display='none'; }
+      if(!regs.length){ if($('noRegs')) $('noRegs').style.display='block'; } else { if($('noRegs')) $('noRegs').style.display='none'; }
       regs.forEach((r,idx)=>{
         const tr = document.createElement('tr');
         tr.innerHTML = `<td>${idx+1}</td>
@@ -605,7 +655,6 @@
                         <td><button class="btn btn-sm btn-danger btn-del" data-id="${r.id}">Delete</button></td>`;
         tbody.appendChild(tr);
       });
-      // attach delete handlers
       document.querySelectorAll('.btn-del').forEach(b=>{
         b.addEventListener('click', e=>{
           const id = parseInt(e.currentTarget.dataset.id);
@@ -615,70 +664,54 @@
         });
       });
     }
-    // open dashboard
-    $('openDashboard').addEventListener('click', ()=>{
-      $('#dashboardModal').modal('show');
-      renderRegistrations();
-    });
-    // export CSV
-    $('exportCSV').addEventListener('click', ()=>{
+
+    if($('openDashboard')){
+      $('openDashboard').addEventListener('click', ()=>{
+        renderRegistrations();
+        $('#dashboardModal').modal('show');
+      });
+    }
+
+    // export
+    function exportRegistrations(){
       const regs = getRegs();
       if(!regs.length){ alert('No registrations to export.'); return; }
       const csv = ['Name,Class,Course,Phone,Email,Notes,When'].concat(regs.map(r=> [quoteCsv(r.name),quoteCsv(r.cls),quoteCsv(r.course),quoteCsv(r.phone),quoteCsv(r.email||''),quoteCsv(r.notes||''),quoteCsv(new Date(r.when).toLocaleString())].join(','))).join('\n');
       const blob = new Blob([csv],{type:'text/csv'}); const url = URL.createObjectURL(blob);
       const a = document.createElement('a'); a.href = url; a.download = 'smartx_registrations.csv'; a.click(); URL.revokeObjectURL(url);
-    });
-    // reset local data
-    $('clearAll').addEventListener('click', ()=>{ if(confirm('Clear ALL local site & registration data?')){ localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(SITE_DATA_KEY); localStorage.removeItem('smartx_admin'); location.reload(); } });
+    }
 
-    // ---------------------
+    if($('exportCSV')) $('exportCSV').addEventListener('click', exportRegistrations);
+    if($('exportCSVInner')) $('exportCSVInner').addEventListener('click', exportRegistrations);
+
+    // Clear data
+    if($('clearAll')) $('clearAll').addEventListener('click', ()=>{ if(confirm('Clear ALL local site & registration data?')){ localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(SITE_DATA_KEY); localStorage.removeItem('smartx_admin'); location.reload(); } });
+    if($('clearRegs')) $('clearRegs').addEventListener('click', ()=>{ if(confirm('Clear ALL registrations?')){ localStorage.removeItem(STORAGE_KEY); renderRegistrations(); alert('Registrations cleared.'); } });
+
     // Admin change password
-    // ---------------------
-    $('savePass').addEventListener('click', ()=>{
-      const np = $('changePass').value.trim();
-      if(!np){ alert('Enter new password'); return; }
-      setAdminPass(np); alert('Admin password changed locally.');
-      $('changePass').value='';
-    });
+    if($('savePass')) $('savePass').addEventListener('click', ()=>{ const np = $('changePass').value.trim(); if(!np){ alert('Enter new password'); return; } setAdminPass(np); alert('Admin password changed locally.'); $('changePass').value=''; });
 
-    // ---------------------
-    // Enrollment CTA behavior (pre-fill reg form and scroll)
-    // ---------------------
-    document.querySelectorAll('.enroll-btn').forEach(b=>{
-      b.addEventListener('click', function(){
-        const course = this.dataset.course;
-        $('regCourse').value = course;
-        window.location.hash = '#contact';
-        $('regName').focus();
-      });
-    });
-    $('bookDemoBtn').addEventListener('click', ()=>{ window.location.hash='#contact'; $('regName').focus(); });
-    $('joinBtn').addEventListener('click', ()=>{ window.location.hash='#contact'; $('regName').focus(); });
+    // Enrollment CTA
+    document.querySelectorAll('.enroll-btn').forEach(b=>{ b.addEventListener('click', function(){ const course = this.dataset.course; if($('regCourse')) $('regCourse').value = course; window.location.hash = '#contact'; if($('regName')) $('regName').focus(); }); });
+    if($('bookDemoBtn')) $('bookDemoBtn').addEventListener('click', ()=>{ window.location.hash='#contact'; if($('regName')) $('regName').focus(); });
+    if($('joinBtn')) $('joinBtn').addEventListener('click', ()=>{ window.location.hash='#contact'; if($('regName')) $('regName').focus(); });
 
-    // ---------------------
-    // Utility functions
-    // ---------------------
-    function escapeHtml(s){ if(!s) return ''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-    function quoteCsv(s){ if(s==null) s=''; return '"'+String(s).replace(/"/g,'""')+'"'; }
-
-    // ---------------------
-    // optional: quick demo data loader (only when empty) - comment out if not needed
-    // ---------------------
+    // demo registration (for testing only)
     if(!getRegs().length){
-      // insert small demo registration for dashboard testing (remove/comment in production)
       const demo = [{id:Date.now(), name:'Demo Student', cls:'8th', course:'Coding Complete', phone:'+919900000000', email:'demo@example.com', notes:'Interested in weekend batch', when:new Date().toISOString()}];
       saveRegs(demo);
     }
+    $('#dashboardModal').on('shown.bs.modal', function () { renderRegistrations(); });
+    window.smartx_get_regs = getRegs;
 
-    // ---------------------
-    // small helper: allow Formspree endpoint update from admin: store in site data
-    // Add a small event that when admin modal is closed, writes the endpoint into hidden input for forms
-    // (we read the input field FORMSPREE_ENDPOINT on registration & contact)
-    // ---------------------
-    // done via site snapshot persistence above (siteSnapshot saved includes nothing for formspree) - manual edit below:
-    // You can edit the hidden input value in HTML or add a field in admin to save the endpoint if needed.
-
+    // Service Worker registration (if you add /service-worker.js)
+    if('serviceWorker' in navigator){
+      window.addEventListener('load', function(){
+        navigator.serviceWorker.register('/service-worker.js').then(reg => {
+          console.log('SW registered:', reg.scope);
+        }).catch(err => console.warn('SW failed:', err));
+      });
+    }
   </script>
 </body>
 </html>
-
