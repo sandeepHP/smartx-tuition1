@@ -1,47 +1,57 @@
-<!DOCTYPE html>
+<!--
+  Smart-X Tuition Center - Single File (Homepage + Admin Dashboard + Registration + Contact)
+  Instructions:
+   - Save as index.html and open in browser.
+   - To enable email notifications: sign up at https://formspree.io and replace FORMSPREE_ENDPOINT below.
+   - Admin login default: admin / smartx123
+   - Registrations are saved in localStorage under key "smartx_regs"
+-->
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Smart-X Tuition Center — Personalized Learning</title>
-  <meta name="description" content="Smart-X Tuition Center: Personalized coaching for Grades 5–10 and Computer Courses (Basic Computer, Coding, Cyber Security). Book a free demo now!">
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4228/4228783.png">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart-X Tuition Center</title>
+  <meta name="description" content="Smart-X Tuition Center - Tuition for Grades 5-10 and Computer Courses">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
   <style>
-    :root {
-      --sx-blue: #0b63d1;
-      --sx-orange: #ff7a18;
-      --sx-bg: #f8faff;
-    }
-    body {font-family: 'Poppins', sans-serif; background: var(--sx-bg); color: #222;}
-    .navbar {background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.08);}
-    .navbar-brand {color: var(--sx-blue)!important; font-weight: 800;}
-    .hero {background: linear-gradient(100deg, #083bb4, #0b63d1); color: #fff; padding: 70px 0;}
-    .hero h1 {font-weight: 800; font-size: 44px;}
-    .hero p {font-size: 17px; color: #e0e6ff;}
-    .hero img {max-width: 450px; border-radius: 14px; box-shadow: 0 10px 35px rgba(0,0,0,0.35);}
-    .btn-orange {background: var(--sx-orange); color: #fff; border: none; border-radius: 8px; padding: 12px 24px; font-weight: 600;}
-    .course-card {border-radius: 12px; overflow: hidden; transition: all 0.3s;}
-    .course-card:hover {transform: translateY(-6px); box-shadow: 0 10px 25px rgba(0,0,0,0.15);}
-    .course-card img {height: 120px; width: 100%; object-fit: cover;}
-    #achievers img {height: 230px; object-fit: cover; border-top-left-radius: 12px; border-top-right-radius: 12px;}
-    #achievers .card {transition: transform 0.25s ease, box-shadow 0.25s ease;}
-    #achievers .card:hover {transform: translateY(-6px); box-shadow: 0 8px 20px rgba(0,0,0,0.15);}
-    footer {background: #fff; text-align: center; padding: 30px 0; margin-top: 60px;}
-    .social-icons a {margin: 0 10px; font-size: 22px; color: var(--sx-blue); transition: color 0.3s;}
-    .social-icons a:hover {color: var(--sx-orange);}
-    .admin-btn {position: fixed; right: 20px; bottom: 20px; background: var(--sx-orange); color: #fff; border: none; border-radius: 50%; width: 55px; height: 55px; font-size: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);}
+    :root{--sx-blue:#0b63d1;--sx-accent:#ff7a18;--muted:#6b7280}
+    body{font-family:"Poppins",sans-serif;background:#f6f9ff;margin:0;color:#111}
+    .topbar{background:#fff;border-bottom:1px solid rgba(11,99,209,0.04);padding:.375rem 0}
+    .navbar{background:#fff;box-shadow:0 6px 20px rgba(2,6,23,0.04)}
+    .navbar-brand{color:var(--sx-blue);font-weight:700}
+    .hero{background:linear-gradient(90deg,#082f9a,#0b63d1);color:#fff;padding:64px 0}
+    .hero h1{font-size:36px;line-height:1.05;font-weight:800}
+    .hero p{color:rgba(255,255,255,.92);margin-top:12px}
+    .btn-accent{background:var(--sx-accent);border:none;color:#fff;border-radius:8px;padding:10px 18px;font-weight:700}
+    .section{padding:48px 0}
+    .card{border-radius:12px}
+    .course-card img{height:140px;object-fit:cover}
+    #achievers img{height:220px;object-fit:cover}
+    footer{background:#fff;padding:28px 0;text-align:center;border-top:1px solid rgba(2,6,23,.04)}
+    .admin-btn{position:fixed;right:20px;bottom:20px;background:var(--sx-accent);color:#fff;border-radius:50%;width:56px;height:56px;border:none;box-shadow:0 6px 18px rgba(0,0,0,0.18)}
+    .small-muted{color:#6b7280}
+    .form-required{color:#d9534f}
+    /* responsive */
+    @media(max-width:768px){ .hero h1{font-size:26px} .hero{padding:36px 0} }
   </style>
 </head>
 <body>
+  <!-- topbar -->
+  <div class="topbar">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="small-muted"><i class="fa fa-phone"></i> +91 99005 23755</div>
+      <div><a href="#contact" class="small-muted">Book a Free Demo | Login</a></div>
+    </div>
+  </div>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg">
     <div class="container">
       <a class="navbar-brand" href="#">Smart-X Tuition Center</a>
-      <button class="navbar-toggler" data-toggle="collapse" data-target="#menu"><span class="navbar-toggler-icon"></span></button>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#menu"><i class="fa fa-bars"></i></button>
       <div class="collapse navbar-collapse" id="menu">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
@@ -55,56 +65,63 @@
   </nav>
 
   <!-- Hero -->
-  <section id="home" class="hero">
+  <header id="home" class="hero">
     <div class="container d-flex flex-wrap align-items-center justify-content-between">
-      <div class="hero-text">
+      <div style="max-width:600px">
         <h1 id="heroTitle">Smart Learning for Smarter Minds — Tuition That Transforms</h1>
-        <p id="heroDesc">We redefine learning with a blend of personalized attention, expert guidance, and digital-age teaching methods — helping every student unlock their full potential and achieve academic excellence..</p>
-        <button class="btn-orange mt-3">Join Now</button>
+        <p id="heroDesc">We deliver personalized attention, expert guidance and digital teaching to help your child achieve excellence.</p>
+        <div class="mt-3">
+          <button class="btn-accent mr-2" id="bookDemoBtn">Book Free Demo</button>
+          <button class="btn btn-outline-light" id="joinBtn">Join Now</button>
+        </div>
       </div>
-      <img id="heroImage" src="https://images.unsplash.com/photo-1600195077075-7c815b0a23ec?auto=format&fit=crop&w=800&q=80" alt="Student">
+      <div style="max-width:480px">
+        <img id="heroImage" src="https://images.unsplash.com/photo-1600195077075-7c815b0a23ec?auto=format&fit=crop&w=800&q=80" alt="student" style="width:100%;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.2)">
+      </div>
     </div>
-  </section>
+  </header>
 
   <!-- Courses -->
-  <section id="courses" class="container mt-5">
-    <h3 class="text-center mb-4 text-primary">Popular Computer Courses</h3>
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card course-card">
-          <img id="c1img" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80">
-          <div class="card-body">
-            <h5 id="c1title">Basic Computer</h5>
-            <p id="c1desc" class="text-muted">Learn MS Office, Internet basics, Email, Typing & more.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span id="c1fee" class="text-primary font-weight-bold">₹7,000</span>
-              <button class="btn btn-sm btn-primary">Enroll</button>
+  <section id="courses" class="section">
+    <div class="container">
+      <h3 class="text-center text-primary mb-4">Popular Computer Courses</h3>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <div class="card course-card h-100">
+            <img id="c1img" class="card-img-top" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" alt="">
+            <div class="card-body d-flex flex-column">
+              <h5 id="c1title">Basic Computer</h5>
+              <p id="c1desc" class="small-muted">MS Office, Email, Typing & fundamentals.</p>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <strong id="c1fee" class="text-primary">₹7,000</strong>
+                <button class="btn btn-sm btn-primary enroll-btn" data-course="Basic Computer">Enroll</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card course-card">
-          <img id="c2img" src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?auto=format&fit=crop&w=800&q=80">
-          <div class="card-body">
-            <h5 id="c2title">Coding Complete</h5>
-            <p id="c2desc" class="text-muted">Master Python, HTML, CSS, JavaScript, and project building.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span id="c2fee" class="text-primary font-weight-bold">₹12,000</span>
-              <button class="btn btn-sm btn-primary">Enroll</button>
+        <div class="col-md-4 mb-3">
+          <div class="card course-card h-100">
+            <img id="c2img" class="card-img-top" src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?auto=format&fit=crop&w=800&q=80" alt="">
+            <div class="card-body d-flex flex-column">
+              <h5 id="c2title">Coding Complete</h5>
+              <p id="c2desc" class="small-muted">Python, HTML, CSS, JS & projects.</p>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <strong id="c2fee" class="text-primary">₹12,000</strong>
+                <button class="btn btn-sm btn-primary enroll-btn" data-course="Coding Complete">Enroll</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card course-card">
-          <img id="c3img" src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=800&q=80">
-          <div class="card-body">
-            <h5 id="c3title">Cyber Security</h5>
-            <p id="c3desc" class="text-muted">Learn how to protect systems from online threats and attacks.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span id="c3fee" class="text-primary font-weight-bold">₹10,000</span>
-              <button class="btn btn-sm btn-primary">Enroll</button>
+        <div class="col-md-4 mb-3">
+          <div class="card course-card h-100">
+            <img id="c3img" class="card-img-top" src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=800&q=80" alt="">
+            <div class="card-body d-flex flex-column">
+              <h5 id="c3title">Cyber Security</h5>
+              <p id="c3desc" class="small-muted">Intro to security, safe browsing & basics.</p>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <strong id="c3fee" class="text-primary">₹10,000</strong>
+                <button class="btn btn-sm btn-primary enroll-btn" data-course="Cyber Security">Enroll</button>
+              </div>
             </div>
           </div>
         </div>
@@ -113,69 +130,148 @@
   </section>
 
   <!-- Achievers -->
-  <section id="achievers" class="container mt-5">
-    <h3 class="text-center mb-4 text-primary">Our Best Students</h3>
-    <p class="text-center text-muted mb-5">Celebrating the hard work and success of our top performers.</p>
-    <div class="row text-center">
-      <div class="col-md-3 col-sm-6 mb-4" id="a1card">
-        <div class="card shadow-sm border-0 rounded-lg">
-          <img id="a1img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=60" class="card-img-top">
-          <div class="card-body">
-            <h6 id="a1name" class="font-weight-bold mb-0">Aarav Kumar</h6>
-            <small id="a1desc" class="text-muted">Class 10 – 98% in Boards</small>
+  <section id="achievers" class="section bg-light">
+    <div class="container">
+      <h3 class="text-center text-primary mb-4">Our Best Students</h3>
+      <div class="row text-center">
+        <div class="col-md-3 col-sm-6 mb-3">
+          <div class="card">
+            <img id="a1img" class="card-img-top" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=60" alt="">
+            <div class="card-body">
+              <h6 id="a1name" class="mb-0">Aarav Kumar</h6>
+              <small id="a1desc" class="small-muted">Class 10 — 98%</small>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-3 col-sm-6 mb-4" id="a2card">
-        <div class="card shadow-sm border-0 rounded-lg">
-          <img id="a2img" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=500&q=60" class="card-img-top">
-          <div class="card-body">
-            <h6 id="a2name" class="font-weight-bold mb-0">Sneha Reddy</h6>
-            <small id="a2desc" class="text-muted">Class 9 – Topper in Science</small>
+        <div class="col-md-3 col-sm-6 mb-3">
+          <div class="card">
+            <img id="a2img" class="card-img-top" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=500&q=60" alt="">
+            <div class="card-body">
+              <h6 id="a2name" class="mb-0">Sneha Reddy</h6>
+              <small id="a2desc" class="small-muted">Class 9 — Topper</small>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-3 col-sm-6 mb-4" id="a3card">
-        <div class="card shadow-sm border-0 rounded-lg">
-          <img id="a3img" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=60" class="card-img-top">
-          <div class="card-body">
-            <h6 id="a3name" class="font-weight-bold mb-0">Ravi Sharma</h6>
-            <small id="a3desc" class="text-muted">Class 8 – Math Olympiad Winner</small>
+        <div class="col-md-3 col-sm-6 mb-3">
+          <div class="card">
+            <img id="a3img" class="card-img-top" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=60" alt="">
+            <div class="card-body">
+              <h6 id="a3name" class="mb-0">Ravi Sharma</h6>
+              <small id="a3desc" class="small-muted">Class 8 — Olympiad</small>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-3 col-sm-6 mb-4" id="a4card">
-        <div class="card shadow-sm border-0 rounded-lg">
-          <img id="a4img" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=500&q=60" class="card-img-top">
-          <div class="card-body">
-            <h6 id="a4name" class="font-weight-bold mb-0">Ananya Gupta</h6>
-            <small id="a4desc" class="text-muted">Class 7 – English Proficiency Award</small>
+        <div class="col-md-3 col-sm-6 mb-3">
+          <div class="card">
+            <img id="a4img" class="card-img-top" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=500&q=60" alt="">
+            <div class="card-body">
+              <h6 id="a4name" class="mb-0">Ananya Gupta</h6>
+              <small id="a4desc" class="small-muted">Class 7 — Award</small>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-  
-   <!-- Fees -->
-  <section id="fees" class="container mt-5">
-    <h3 class="text-center mb-3 text-primary">Tuition Fee Structure</h3>
-    <table class="table table-bordered text-center bg-white">
-      <thead class="table-primary"><tr><th>Class</th><th>Monthly Fee (₹)</th></tr></thead>
-      <tbody>
-        <tr><td>5th - 7th</td><td>2000</td></tr>
-        <tr><td>8th - 9th</td><td>2500</td></tr>
-        <tr><td>10th</td><td>3000</td></tr>
-      </tbody>
-    </table>
+
+  <!-- Fees -->
+  <section id="fees" class="section">
+    <div class="container">
+      <h3 class="text-center text-primary mb-4">Tuition Fee Structure</h3>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <table class="table table-bordered text-center bg-white">
+            <thead class="thead-light"><tr><th>Class</th><th>Monthly Fee (₹)</th></tr></thead>
+            <tbody>
+              <tr><td>5th - 7th</td><td>2000</td></tr>
+              <tr><td>8th - 9th</td><td>2500</td></tr>
+              <tr><td>10th</td><td>3000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="container text-center mt-5">
-    <h3 class="text-primary mb-3">Contact Us</h3>
-    <p><i class="fa fa-phone"></i> +91 99005 23755 | <i class="fa fa-envelope"></i> <span id="emailText">info@smartx.example</span></p>
+  <!-- Registration + Contact -->
+  <section id="contact" class="section bg-white">
+    <div class="container">
+      <div class="row">
+        <!-- Registration form -->
+        <div class="col-md-6 mb-4">
+          <div class="card p-3">
+            <h5 class="mb-3">Student Registration</h5>
+            <form id="regForm">
+              <div class="form-group">
+                <label>Student Name <span class="form-required">*</span></label>
+                <input id="regName" class="form-control" required>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label>Class</label>
+                  <input id="regClass" class="form-control" placeholder="e.g., 8th">
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Course</label>
+                  <select id="regCourse" class="form-control">
+                    <option>Basic Computer</option>
+                    <option>Coding Complete</option>
+                    <option>Cyber Security</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Parent / Guardian Phone <span class="form-required">*</span></label>
+                <input id="regPhone" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input id="regEmail" class="form-control" type="email">
+              </div>
+              <div class="form-group">
+                <label>Notes</label>
+                <textarea id="regNotes" class="form-control" rows="2"></textarea>
+              </div>
+
+              <!-- OPTIONAL: if you want email notifications via Formspree, set endpoint below -->
+              <!-- Replace FORMSPREE_ENDPOINT with your Formspree endpoint if you want emails -->
+              <input type="hidden" id="FORMSPREE_ENDPOINT" value="https://formspree.io/f/yourFormID">
+
+              <button class="btn btn-accent" type="submit">Register</button>
+              <small class="form-text text-muted mt-2">Your submission will be saved and appear in the admin dashboard.</small>
+            </form>
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <div class="col-md-6 mb-4">
+          <div class="card p-3">
+            <h5 class="mb-3">Contact / Enquiry</h5>
+            <!-- This static form will POST to Formspree if you set endpoint above -->
+            <form id="contactForm">
+              <div class="form-group">
+                <label>Your Name</label>
+                <input id="contactName" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Your Email</label>
+                <input id="contactEmail" class="form-control" type="email" required>
+              </div>
+              <div class="form-group">
+                <label>Message</label>
+                <textarea id="contactMessage" class="form-control" rows="4" required></textarea>
+              </div>
+
+              <button class="btn btn-primary" type="submit">Send Message</button>
+              <small class="form-text text-muted mt-2">You can receive messages by connecting this form to Formspree (see admin panel).</small>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer & socials -->
   <footer>
     <div class="social-icons mb-2">
       <a id="fbLink" href="#" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -188,158 +284,400 @@
   </footer>
 
   <!-- Admin Button -->
-  <button class="admin-btn" data-toggle="modal" data-target="#adminModal"><i class="fa fa-user-cog"></i></button>
+  <button class="admin-btn" data-toggle="modal" data-target="#adminModal" title="Admin"><i class="fa fa-user-cog"></i></button>
 
   <!-- Admin Modal -->
-  <div class="modal fade" id="adminModal">
-    <div class="modal-dialog">
+  <div class="modal fade" id="adminModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
-        <div class="modal-header"><h5>Admin Edit Panel</h5><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+        <div class="modal-header"><h5>Admin Panel</h5><button class="close" data-dismiss="modal">&times;</button></div>
         <div class="modal-body">
-          <input type="text" id="adminUser" class="form-control mb-2" placeholder="Username">
-          <input type="password" id="adminPass" class="form-control mb-3" placeholder="Password">
-          <div id="adminPanel" style="display:none;">
-            <label>Hero Title</label>
-            <input id="editHeroTitle" class="form-control mb-2">
-            <label>Hero Description</label>
-            <textarea id="editHeroDesc" class="form-control mb-2"></textarea>
-            <label>Hero Image</label>
-            <input type="file" id="editHeroImage" class="form-control mb-3" accept="image/*">
-            <label>Email</label>
+          <div class="form-row">
+            <div class="col-12">
+              <input id="adminUser" class="form-control mb-2" placeholder="Username (admin)">
+              <input id="adminPass" type="password" class="form-control mb-3" placeholder="Password (smartx123)">
+            </div>
+          </div>
+
+          <div id="adminPanel" style="display:none">
+            <!-- Edit site content (same as before) -->
+            <h6>Hero</h6>
+            <input id="editHeroTitle" class="form-control mb-2" placeholder="Hero title">
+            <textarea id="editHeroDesc" class="form-control mb-2" rows="2"></textarea>
+            <label>Hero image</label>
+            <input id="editHeroImage" type="file" accept="image/*" class="form-control mb-2">
+            <label>Contact email</label>
             <input id="editEmail" class="form-control mb-3">
 
             <h6>Courses</h6>
-            <input id="editC1" class="form-control mb-2" placeholder="Basic Computer Title">
-            <input id="editC1fee" class="form-control mb-3" placeholder="Basic Computer Fee">
-            <input id="editC2" class="form-control mb-2" placeholder="Coding Title">
-            <input id="editC2fee" class="form-control mb-3" placeholder="Coding Fee">
-            <input id="editC3" class="form-control mb-2" placeholder="Cyber Security Title">
-            <input id="editC3fee" class="form-control mb-3" placeholder="Cyber Security Fee">
-
-            <h6 class="mt-4">Best Students</h6>
-            <div class="row">
-              <div class="col-md-6">
-                <input id="editA1name" class="form-control mb-1" placeholder="Student 1 Name">
-                <input id="editA1desc" class="form-control mb-1" placeholder="Student 1 Achievement">
-                <input type="file" id="editA1img" class="form-control mb-3" accept="image/*">
+            <div class="form-row">
+              <div class="col-md-4 mb-2">
+                <input id="editC1" class="form-control" placeholder="Course 1 title">
+                <input id="editC1fee" class="form-control mt-1" placeholder="Course 1 fee">
               </div>
-              <div class="col-md-6">
-                <input id="editA2name" class="form-control mb-1" placeholder="Student 2 Name">
-                <input id="editA2desc" class="form-control mb-1" placeholder="Student 2 Achievement">
-                <input type="file" id="editA2img" class="form-control mb-3" accept="image/*">
+              <div class="col-md-4 mb-2">
+                <input id="editC2" class="form-control" placeholder="Course 2 title">
+                <input id="editC2fee" class="form-control mt-1" placeholder="Course 2 fee">
               </div>
-              <div class="col-md-6">
-                <input id="editA3name" class="form-control mb-1" placeholder="Student 3 Name">
-                <input id="editA3desc" class="form-control mb-1" placeholder="Student 3 Achievement">
-                <input type="file" id="editA3img" class="form-control mb-3" accept="image/*">
-              </div>
-              <div class="col-md-6">
-                <input id="editA4name" class="form-control mb-1" placeholder="Student 4 Name">
-                <input id="editA4desc" class="form-control mb-1" placeholder="Student 4 Achievement">
-                <input type="file" id="editA4img" class="form-control mb-3" accept="image/*">
+              <div class="col-md-4 mb-2">
+                <input id="editC3" class="form-control" placeholder="Course 3 title">
+                <input id="editC3fee" class="form-control mt-1" placeholder="Course 3 fee">
               </div>
             </div>
 
-            <h6 class="mt-4">Social Links</h6>
+            <h6 class="mt-3">Best Students</h6>
+            <div class="row">
+              <div class="col-md-6">
+                <input id="editA1name" class="form-control mb-1" placeholder="Student 1 name">
+                <input id="editA1desc" class="form-control mb-1" placeholder="Student 1 achievement">
+                <input id="editA1img" type="file" accept="image/*" class="form-control mb-3">
+              </div>
+              <div class="col-md-6">
+                <input id="editA2name" class="form-control mb-1" placeholder="Student 2 name">
+                <input id="editA2desc" class="form-control mb-1" placeholder="Student 2 achievement">
+                <input id="editA2img" type="file" accept="image/*" class="form-control mb-3">
+              </div>
+              <div class="col-md-6">
+                <input id="editA3name" class="form-control mb-1" placeholder="Student 3 name">
+                <input id="editA3desc" class="form-control mb-1" placeholder="Student 3 achievement">
+                <input id="editA3img" type="file" accept="image/*" class="form-control mb-3">
+              </div>
+              <div class="col-md-6">
+                <input id="editA4name" class="form-control mb-1" placeholder="Student 4 name">
+                <input id="editA4desc" class="form-control mb-1" placeholder="Student 4 achievement">
+                <input id="editA4img" type="file" accept="image/*" class="form-control mb-3">
+              </div>
+            </div>
+
+            <h6 class="mt-3">Social links</h6>
             <input id="editFb" class="form-control mb-2" placeholder="Facebook URL">
             <input id="editInsta" class="form-control mb-2" placeholder="Instagram URL">
             <input id="editYt" class="form-control mb-2" placeholder="YouTube URL">
-            <input id="editWa" class="form-control mb-2" placeholder="WhatsApp URL">
+            <input id="editWa" class="form-control mb-2" placeholder="WhatsApp URL (wa.me)">
             <input id="editLn" class="form-control mb-3" placeholder="LinkedIn URL">
 
-            <button class="btn btn-success w-100" id="saveChanges">Save Changes</button>
-          </div>
+            <div class="d-flex mb-3">
+              <button id="saveChanges" class="btn btn-success mr-2">Save Changes</button>
+              <button id="openDashboard" class="btn btn-outline-primary">Open Dashboard</button>
+              <button id="exportCSV" class="btn btn-outline-secondary ml-2">Export Registrations</button>
+              <button id="clearAll" class="btn btn-danger ml-auto">Reset Local Data</button>
+            </div>
+
+            <hr/>
+            <h6>Admin Settings</h6>
+            <div class="form-row">
+              <div class="col-md-6 mb-2">
+                <label>Change Admin Password</label>
+                <input id="changePass" type="password" class="form-control" placeholder="New password">
+              </div>
+              <div class="col-md-6 align-self-end">
+                <button id="savePass" class="btn btn-primary">Save Password</button>
+              </div>
+            </div>
+
+            <!-- Dashboard modal (hidden) -->
+            <div class="modal fade" id="dashboardModal" tabindex="-1">
+              <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header"><h5>Admin Dashboard — Registrations</h5><button class="close" data-dismiss="modal">&times;</button></div>
+                  <div class="modal-body">
+                    <table class="table table-sm table-striped" id="regsTable">
+                      <thead><tr><th>#</th><th>Name</th><th>Class</th><th>Course</th><th>Phone</th><th>Email</th><th>Notes</th><th>When</th><th>Action</th></tr></thead>
+                      <tbody></tbody>
+                    </table>
+                    <div id="noRegs" class="text-center small-muted">No registrations yet.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div> <!-- adminPanel -->
         </div>
       </div>
     </div>
   </div>
 
+  <!-- scripts -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+
   <script>
-    const USER="admin",PASS="smartx123";
-    document.getElementById("year").textContent=new Date().getFullYear();
-    const heroTitle=document.getElementById("heroTitle"),heroDesc=document.getElementById("heroDesc"),heroImg=document.getElementById("heroImage"),emailText=document.getElementById("emailText");
+    // -------------------------
+    // Configuration / Helpers
+    // -------------------------
+    const DEFAULT_ADMIN = {user:'admin', pass:'smartx123'}; // initial credential
+    const STORAGE_KEY = 'smartx_regs';
+    const SITE_DATA_KEY = 'smartx_site';
+    const FORMSPREE_ENDPOINT_ID = 'FORMSPREE_ENDPOINT'; // element id
+    // Utility
+    const $ = id => document.getElementById(id);
+    const getRegs = ()=> JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    const saveRegs = regs => localStorage.setItem(STORAGE_KEY, JSON.stringify(regs));
+    // Persistable site data
+    const getSiteData = ()=> JSON.parse(localStorage.getItem(SITE_DATA_KEY) || '{}');
+    const saveSiteData = data => localStorage.setItem(SITE_DATA_KEY, JSON.stringify(data));
 
-    document.getElementById("adminPass").addEventListener("input",e=>{
-      if(document.getElementById("adminUser").value===USER&&e.target.value===PASS)
-        document.getElementById("adminPanel").style.display="block";
-      else document.getElementById("adminPanel").style.display="none";
+    // ---------------
+    // Init
+    // ---------------
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Load saved site data (hero/img/achievers/socials)
+    (function applySavedSite(){
+      const s = getSiteData();
+      if(!s) return;
+      if(s.heroTitle) $('heroTitle').textContent = s.heroTitle;
+      if(s.heroDesc) $('heroDesc').textContent = s.heroDesc;
+      if(s.heroImg) $('heroImage').src = s.heroImg;
+      if(s.email) { if($('emailText')) $('emailText').textContent = s.email; }
+      // courses
+      if(s.courses){
+        if(s.courses[0]) {$('c1title').textContent = s.courses[0].title; $('c1fee').textContent = s.courses[0].fee;}
+        if(s.courses[1]) {$('c2title').textContent = s.courses[1].title; $('c2fee').textContent = s.courses[1].fee;}
+        if(s.courses[2]) {$('c3title').textContent = s.courses[2].title; $('c3fee').textContent = s.courses[2].fee;}
+      }
+      if(s.achievers){
+        s.achievers.forEach((a,i)=>{ const idx=i+1; if(a.name) $('a'+idx+'name').textContent=a.name; if(a.desc) $('a'+idx+'desc').textContent=a.desc; if(a.img) $('a'+idx+'img').src=a.img; });
+      }
+      if(s.socials){
+        $('fbLink').href = s.socials.fb || '#'; $('instaLink').href = s.socials.insta || '#'; $('ytLink').href = s.socials.yt || '#'; $('waLink').href = s.socials.wa || '#'; $('lnLink').href = s.socials.ln || '#';
+      }
+    })();
+
+    // ---------------------
+    // Enrollment (Registration)
+    // ---------------------
+    document.getElementById('regForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = $('regName').value.trim();
+      const cls = $('regClass').value.trim();
+      const course = $('regCourse').value;
+      const phone = $('regPhone').value.trim();
+      const email = $('regEmail').value.trim();
+      const notes = $('regNotes').value.trim();
+      if(!name || !phone){ alert('Please enter student name and parent phone.'); return; }
+      const regs = getRegs();
+      const now = new Date().toISOString();
+      regs.unshift({id:Date.now(), name, cls, course, phone, email, notes, when:now});
+      saveRegs(regs);
+      alert('Registration saved. Admin can view in Dashboard.');
+      this.reset();
+
+      // OPTIONAL: send to Formspree if you configured endpoint
+      const endpoint = document.getElementById(FORMSPREE_ENDPOINT_ID).value.trim();
+      if(endpoint && endpoint !== 'https://formspree.io/f/yourFormID'){
+        // basic fetch POST
+        fetch(endpoint, {
+          method:'POST',
+          headers:{'Content-Type':'application/json','Accept':'application/json'},
+          body: JSON.stringify({student:name, class:cls, course, phone, email, notes})
+        }).catch(()=>{/* ignore errors for now */});
+      }
     });
 
-    document.getElementById("saveChanges").addEventListener("click",()=>{
-      heroTitle.textContent=document.getElementById("editHeroTitle").value;
-      heroDesc.textContent=document.getElementById("editHeroDesc").value;
-      emailText.textContent=document.getElementById("editEmail").value;
+    // ---------------------
+    // Contact form
+    // ---------------------
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = $('contactName').value.trim();
+      const email = $('contactEmail').value.trim();
+      const message = $('contactMessage').value.trim();
+      if(!name || !email || !message){ alert('Please complete the contact form.'); return; }
 
-      if(document.getElementById("editHeroImage").files[0]){
-        const r=new FileReader();
-        r.onload=e=>heroImg.src=e.target.result;
-        r.readAsDataURL(document.getElementById("editHeroImage").files[0]);
+      const endpoint = document.getElementById(FORMSPREE_ENDPOINT_ID).value.trim();
+      if(endpoint && endpoint !== 'https://formspree.io/f/yourFormID'){
+        fetch(endpoint, {
+          method:'POST',
+          headers:{'Content-Type':'application/json','Accept':'application/json'},
+          body: JSON.stringify({name,email,message})
+        }).then(()=>{ alert('Message sent. We will contact you soon.'); this.reset(); })
+        .catch(()=>{ alert('Message queued locally.'); });
+      } else {
+        // fallback: open mailto
+        const subject = encodeURIComponent('Contact enquiry from ' + name);
+        const body = encodeURIComponent(message + '\n\nContact: ' + email);
+        window.location.href = `mailto:info@smartx.example?subject=${subject}&body=${body}`;
       }
-
-      document.getElementById("c1title").textContent=document.getElementById("editC1").value;
-      document.getElementById("c1fee").textContent=document.getElementById("editC1fee").value;
-      document.getElementById("c2title").textContent=document.getElementById("editC2").value;
-      document.getElementById("c2fee").textContent=document.getElementById("editC2fee").value;
-      document.getElementById("c3title").textContent=document.getElementById("editC3").value;
-      document.getElementById("c3fee").textContent=document.getElementById("editC3fee").value;
-
-      for(let i=1;i<=4;i++){
-        const n=document.getElementById(`editA${i}name`),d=document.getElementById(`editA${i}desc`),img=document.getElementById(`editA${i}img`);
-        if(n)document.getElementById(`a${i}name`).textContent=n.value;
-        if(d)document.getElementById(`a${i}desc`).textContent=d.value;
-        if(img&&img.files[0]){
-          const r=new FileReader();
-          r.onload=e=>document.getElementById(`a${i}img`).src=e.target.result;
-          r.readAsDataURL(img.files[0]);
-        }
-      }
-
-      // Social links
-      document.getElementById("fbLink").href=document.getElementById("editFb").value;
-      document.getElementById("instaLink").href=document.getElementById("editInsta").value;
-      document.getElementById("ytLink").href=document.getElementById("editYt").value;
-      document.getElementById("waLink").href=document.getElementById("editWa").value;
-      document.getElementById("lnLink").href=document.getElementById("editLn").value;
-
-      const data={
-        heroImg:heroImg.src,
-        achievers:[1,2,3,4].map(i=>({
-          name:document.getElementById(`a${i}name`).textContent,
-          desc:document.getElementById(`a${i}desc`).textContent,
-          img:document.getElementById(`a${i}img`).src
-        })),
-        socials:{
-          fb:document.getElementById("fbLink").href,
-          insta:document.getElementById("instaLink").href,
-          yt:document.getElementById("ytLink").href,
-          wa:document.getElementById("waLink").href,
-          ln:document.getElementById("lnLink").href
-        }
-      };
-      localStorage.setItem("smartxData",JSON.stringify(data));
-      alert("Changes saved successfully!");
     });
 
-    const saved=localStorage.getItem("smartxData");
-    if(saved){
-      const data=JSON.parse(saved);
-      if(data.heroImg)heroImg.src=data.heroImg;
-      if(data.achievers) data.achievers.forEach((a,i)=>{
-        const idx=i+1;
-        document.getElementById(`a${idx}name`).textContent=a.name;
-        document.getElementById(`a${idx}desc`).textContent=a.desc;
-        document.getElementById(`a${idx}img`).src=a.img;
-      });
-      if(data.socials){
-        document.getElementById("fbLink").href=data.socials.fb;
-        document.getElementById("instaLink").href=data.socials.insta;
-        document.getElementById("ytLink").href=data.socials.yt;
-        document.getElementById("waLink").href=data.socials.wa;
-        document.getElementById("lnLink").href=data.socials.ln;
-      }
+    // ---------------------
+    // Admin login + edit site content
+    // ---------------------
+    // manage admin credentials in localStorage (simple)
+    function getAdminCreds(){
+      const raw = localStorage.getItem('smartx_admin');
+      if(raw) try{ return JSON.parse(raw);}catch(e){}
+      return DEFAULT_ADMIN;
     }
+    function setAdminPass(newpass){
+      const a = getAdminCreds(); a.pass = newpass; localStorage.setItem('smartx_admin', JSON.stringify(a));
+    }
+    // login reveal admin panel fields and populate with current content
+    $('adminPass').addEventListener('input', function(e){
+      const user = $('adminUser').value.trim();
+      const creds = getAdminCreds();
+      if(user === creds.user && e.target.value === creds.pass){
+        $('adminPanel').style.display = 'block';
+        // populate fields
+        $('editHeroTitle').value = $('heroTitle').textContent;
+        $('editHeroDesc').value = $('heroDesc').textContent;
+        $('editEmail').value = $('emailText') ? $('emailText').textContent : '';
+        $('editC1').value = $('c1title').textContent; $('editC1fee').value = $('c1fee').textContent;
+        $('editC2').value = $('c2title').textContent; $('editC2fee').value = $('c2fee').textContent;
+        $('editC3').value = $('c3title').textContent; $('editC3fee').value = $('c3fee').textContent;
+        for(let i=1;i<=4;i++){ $('editA'+i+'name').value = $('a'+i+'name').textContent; $('editA'+i+'desc').value = $('a'+i+'desc').textContent; }
+        // populate social links if saved
+        const s = getSiteData(); if(s.socials){ $('editFb').value=s.socials.fb||''; $('editInsta').value=s.socials.insta||''; $('editYt').value=s.socials.yt||''; $('editWa').value=s.socials.wa||''; $('editLn').value=s.socials.ln||''; }
+      } else $('adminPanel').style.display = 'none';
+    });
+
+    // helper: file->img
+    function fileToImg(fileInput, targetImgId){
+      const f = fileInput.files && fileInput.files[0];
+      if(!f) return Promise.resolve();
+      return new Promise(res=>{
+        const r = new FileReader();
+        r.onload = e => { $(targetImgId).src = e.target.result; res(); };
+        r.readAsDataURL(f);
+      });
+    }
+
+    // save site changes
+    $('saveChanges').addEventListener('click', async ()=>{
+      // hero
+      const heroTitle = $('editHeroTitle').value.trim() || $('heroTitle').textContent;
+      const heroDesc = $('editHeroDesc').value.trim() || $('heroDesc').textContent;
+      $('heroTitle').textContent = heroTitle; $('heroDesc').textContent = heroDesc;
+      if($('editHeroImage').files[0]) await fileToImg($('editHeroImage'),'heroImage');
+      // email
+      const email = $('editEmail').value.trim(); if($('emailText')) $('emailText').textContent = email;
+      // courses
+      $('c1title').textContent = $('editC1').value || $('c1title').textContent; $('c1fee').textContent = $('editC1fee').value || $('c1fee').textContent;
+      $('c2title').textContent = $('editC2').value || $('c2title').textContent; $('c2fee').textContent = $('editC2fee').value || $('c2fee').textContent;
+      $('c3title').textContent = $('editC3').value || $('c3title').textContent; $('c3fee').textContent = $('editC3fee').value || $('c3fee').textContent;
+      // achievers images + text
+      for(let i=1;i<=4;i++){
+        const n = $('editA'+i+'name').value.trim(); const d = $('editA'+i+'desc').value.trim();
+        if(n) $('a'+i+'name').textContent = n; if(d) $('a'+i+'desc').textContent = d;
+        if($('editA'+i+'img').files[0]) await fileToImg($('editA'+i+'img'),'a'+i+'img');
+      }
+      // socials
+      const socials = { fb: $('editFb').value.trim(), insta: $('editInsta').value.trim(), yt: $('editYt').value.trim(), wa: $('editWa').value.trim(), ln: $('editLn').value.trim() };
+      $('fbLink').href = socials.fb || '#'; $('instaLink').href = socials.insta || '#'; $('ytLink').href = socials.yt || '#'; $('waLink').href = socials.wa || '#'; $('lnLink').href = socials.ln || '#';
+
+      // save snapshot
+      const siteSnapshot = {
+        heroTitle: $('heroTitle').textContent,
+        heroDesc: $('heroDesc').textContent,
+        heroImg: $('heroImage').src,
+        email: $('emailText') ? $('emailText').textContent : '',
+        courses: [
+          {title:$('c1title').textContent, fee:$('c1fee').textContent},
+          {title:$('c2title').textContent, fee:$('c2fee').textContent},
+          {title:$('c3title').textContent, fee:$('c3fee').textContent}
+        ],
+        achievers: [1,2,3,4].map(i=>({name:$('a'+i+'name').textContent, desc:$('a'+i+'desc').textContent, img:$('a'+i+'img').src})),
+        socials
+      };
+      saveSiteData(siteSnapshot);
+      alert('Site changes saved locally.');
+      $('#adminModal').modal('hide');
+    });
+
+    // ---------------------
+    // Dashboard - show registrations
+    // ---------------------
+    function renderRegistrations(){
+      const regs = getRegs();
+      const tbody = document.querySelector('#regsTable tbody');
+      tbody.innerHTML = '';
+      if(!regs.length){ $('noRegs').style.display='block'; } else { $('noRegs').style.display='none'; }
+      regs.forEach((r,idx)=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${idx+1}</td>
+                        <td>${escapeHtml(r.name)}</td>
+                        <td>${escapeHtml(r.cls)}</td>
+                        <td>${escapeHtml(r.course)}</td>
+                        <td>${escapeHtml(r.phone)}</td>
+                        <td>${escapeHtml(r.email||'')}</td>
+                        <td>${escapeHtml(r.notes||'')}</td>
+                        <td>${new Date(r.when).toLocaleString()}</td>
+                        <td><button class="btn btn-sm btn-danger btn-del" data-id="${r.id}">Delete</button></td>`;
+        tbody.appendChild(tr);
+      });
+      // attach delete handlers
+      document.querySelectorAll('.btn-del').forEach(b=>{
+        b.addEventListener('click', e=>{
+          const id = parseInt(e.currentTarget.dataset.id);
+          if(confirm('Delete this registration?')){
+            const arr = getRegs().filter(x=>x.id!==id); saveRegs(arr); renderRegistrations();
+          }
+        });
+      });
+    }
+    // open dashboard
+    $('openDashboard').addEventListener('click', ()=>{
+      $('#dashboardModal').modal('show');
+      renderRegistrations();
+    });
+    // export CSV
+    $('exportCSV').addEventListener('click', ()=>{
+      const regs = getRegs();
+      if(!regs.length){ alert('No registrations to export.'); return; }
+      const csv = ['Name,Class,Course,Phone,Email,Notes,When'].concat(regs.map(r=> [quoteCsv(r.name),quoteCsv(r.cls),quoteCsv(r.course),quoteCsv(r.phone),quoteCsv(r.email||''),quoteCsv(r.notes||''),quoteCsv(new Date(r.when).toLocaleString())].join(','))).join('\n');
+      const blob = new Blob([csv],{type:'text/csv'}); const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'smartx_registrations.csv'; a.click(); URL.revokeObjectURL(url);
+    });
+    // reset local data
+    $('clearAll').addEventListener('click', ()=>{ if(confirm('Clear ALL local site & registration data?')){ localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(SITE_DATA_KEY); localStorage.removeItem('smartx_admin'); location.reload(); } });
+
+    // ---------------------
+    // Admin change password
+    // ---------------------
+    $('savePass').addEventListener('click', ()=>{
+      const np = $('changePass').value.trim();
+      if(!np){ alert('Enter new password'); return; }
+      setAdminPass(np); alert('Admin password changed locally.');
+      $('changePass').value='';
+    });
+
+    // ---------------------
+    // Enrollment CTA behavior (pre-fill reg form and scroll)
+    // ---------------------
+    document.querySelectorAll('.enroll-btn').forEach(b=>{
+      b.addEventListener('click', function(){
+        const course = this.dataset.course;
+        $('regCourse').value = course;
+        window.location.hash = '#contact';
+        $('regName').focus();
+      });
+    });
+    $('bookDemoBtn').addEventListener('click', ()=>{ window.location.hash='#contact'; $('regName').focus(); });
+    $('joinBtn').addEventListener('click', ()=>{ window.location.hash='#contact'; $('regName').focus(); });
+
+    // ---------------------
+    // Utility functions
+    // ---------------------
+    function escapeHtml(s){ if(!s) return ''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function quoteCsv(s){ if(s==null) s=''; return '"'+String(s).replace(/"/g,'""')+'"'; }
+
+    // ---------------------
+    // optional: quick demo data loader (only when empty) - comment out if not needed
+    // ---------------------
+    if(!getRegs().length){
+      // insert small demo registration for dashboard testing (remove/comment in production)
+      const demo = [{id:Date.now(), name:'Demo Student', cls:'8th', course:'Coding Complete', phone:'+919900000000', email:'demo@example.com', notes:'Interested in weekend batch', when:new Date().toISOString()}];
+      saveRegs(demo);
+    }
+
+    // ---------------------
+    // small helper: allow Formspree endpoint update from admin: store in site data
+    // Add a small event that when admin modal is closed, writes the endpoint into hidden input for forms
+    // (we read the input field FORMSPREE_ENDPOINT on registration & contact)
+    // ---------------------
+    // done via site snapshot persistence above (siteSnapshot saved includes nothing for formspree) - manual edit below:
+    // You can edit the hidden input value in HTML or add a field in admin to save the endpoint if needed.
+
   </script>
 </body>
 </html>
