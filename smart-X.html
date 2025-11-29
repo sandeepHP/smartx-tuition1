@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart-X Tuition Center — Personalized Learning</title>
+  <meta name="description" content="Smart-X Tuition Center: Personalized coaching for Grades 5–10 and Computer Courses (Basic Computer, Coding, Cyber Security). Book a free demo now!">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4228/4228783.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <style>
+    :root {
+      --sx-blue: #0b63d1;
+      --sx-orange: #ff7a18;
+      --sx-bg: #f8faff;
+    }
+    body {font-family: 'Poppins', sans-serif; background: var(--sx-bg); color: #222;}
+    .navbar {background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.08);}
+    .navbar-brand {color: var(--sx-blue)!important; font-weight: 800;}
+    .hero {background: linear-gradient(100deg, #083bb4, #0b63d1); color: #fff; padding: 70px 0;}
+    .hero h1 {font-weight: 800; font-size: 44px;}
+    .hero p {font-size: 17px; color: #e0e6ff;}
+    .hero img {max-width: 450px; border-radius: 14px; box-shadow: 0 10px 35px rgba(0,0,0,0.35);}
+    .btn-orange {background: var(--sx-orange); color: #fff; border: none; border-radius: 8px; padding: 12px 24px; font-weight: 600;}
+    .course-card {border-radius: 12px; overflow: hidden; transition: all 0.3s;}
+    .course-card:hover {transform: translateY(-6px); box-shadow: 0 10px 25px rgba(0,0,0,0.15);}
+    .course-card img {height: 120px; width: 100%; object-fit: cover;}
+    #achievers img {height: 230px; object-fit: cover; border-top-left-radius: 12px; border-top-right-radius: 12px;}
+    #achievers .card {transition: transform 0.25s ease, box-shadow 0.25s ease;}
+    #achievers .card:hover {transform: translateY(-6px); box-shadow: 0 8px 20px rgba(0,0,0,0.15);}
+    footer {background: #fff; text-align: center; padding: 30px 0; margin-top: 60px;}
+    .social-icons a {margin: 0 10px; font-size: 22px; color: var(--sx-blue); transition: color 0.3s;}
+    .social-icons a:hover {color: var(--sx-orange);}
+    .admin-btn {position: fixed; right: 20px; bottom: 20px; background: var(--sx-orange); color: #fff; border: none; border-radius: 50%; width: 55px; height: 55px; font-size: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);}
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Smart-X Tuition Center</a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#menu"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
+          <li class="nav-item"><a class="nav-link" href="#achievers">Best Students</a></li>
+          <li class="nav-item"><a class="nav-link" href="#fees">Fees</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="container d-flex flex-wrap align-items-center justify-content-between">
+      <div class="hero-text">
+        <h1 id="heroTitle">Smart Learning for Smarter Minds — Tuition That Transforms</h1>
+        <p id="heroDesc">We redefine learning with a blend of personalized attention, expert guidance, and digital-age teaching methods — helping every student unlock their full potential and achieve academic excellence..</p>
+        <button class="btn-orange mt-3">Join Now</button>
+      </div>
+      <img id="heroImage" src="https://images.unsplash.com/photo-1600195077075-7c815b0a23ec?auto=format&fit=crop&w=800&q=80" alt="Student">
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <section id="courses" class="container mt-5">
+    <h3 class="text-center mb-4 text-primary">Popular Computer Courses</h3>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card course-card">
+          <img id="c1img" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80">
+          <div class="card-body">
+            <h5 id="c1title">Basic Computer</h5>
+            <p id="c1desc" class="text-muted">Learn MS Office, Internet basics, Email, Typing & more.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span id="c1fee" class="text-primary font-weight-bold">₹7,000</span>
+              <button class="btn btn-sm btn-primary">Enroll</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card course-card">
+          <img id="c2img" src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?auto=format&fit=crop&w=800&q=80">
+          <div class="card-body">
+            <h5 id="c2title">Coding Complete</h5>
+            <p id="c2desc" class="text-muted">Master Python, HTML, CSS, JavaScript, and project building.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span id="c2fee" class="text-primary font-weight-bold">₹12,000</span>
+              <button class="btn btn-sm btn-primary">Enroll</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card course-card">
+          <img id="c3img" src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=800&q=80">
+          <div class="card-body">
+            <h5 id="c3title">Cyber Security</h5>
+            <p id="c3desc" class="text-muted">Learn how to protect systems from online threats and attacks.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span id="c3fee" class="text-primary font-weight-bold">₹10,000</span>
+              <button class="btn btn-sm btn-primary">Enroll</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievers -->
+  <section id="achievers" class="container mt-5">
+    <h3 class="text-center mb-4 text-primary">Our Best Students</h3>
+    <p class="text-center text-muted mb-5">Celebrating the hard work and success of our top performers.</p>
+    <div class="row text-center">
+      <div class="col-md-3 col-sm-6 mb-4" id="a1card">
+        <div class="card shadow-sm border-0 rounded-lg">
+          <img id="a1img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=60" class="card-img-top">
+          <div class="card-body">
+            <h6 id="a1name" class="font-weight-bold mb-0">Aarav Kumar</h6>
+            <small id="a1desc" class="text-muted">Class 10 – 98% in Boards</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-4" id="a2card">
+        <div class="card shadow-sm border-0 rounded-lg">
+          <img id="a2img" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=500&q=60" class="card-img-top">
+          <div class="card-body">
+            <h6 id="a2name" class="font-weight-bold mb-0">Sneha Reddy</h6>
+            <small id="a2desc" class="text-muted">Class 9 – Topper in Science</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-4" id="a3card">
+        <div class="card shadow-sm border-0 rounded-lg">
+          <img id="a3img" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=60" class="card-img-top">
+          <div class="card-body">
+            <h6 id="a3name" class="font-weight-bold mb-0">Ravi Sharma</h6>
+            <small id="a3desc" class="text-muted">Class 8 – Math Olympiad Winner</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-4" id="a4card">
+        <div class="card shadow-sm border-0 rounded-lg">
+          <img id="a4img" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&w=500&q=60" class="card-img-top">
+          <div class="card-body">
+            <h6 id="a4name" class="font-weight-bold mb-0">Ananya Gupta</h6>
+            <small id="a4desc" class="text-muted">Class 7 – English Proficiency Award</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+   <!-- Fees -->
+  <section id="fees" class="container mt-5">
+    <h3 class="text-center mb-3 text-primary">Tuition Fee Structure</h3>
+    <table class="table table-bordered text-center bg-white">
+      <thead class="table-primary"><tr><th>Class</th><th>Monthly Fee (₹)</th></tr></thead>
+      <tbody>
+        <tr><td>5th - 7th</td><td>2000</td></tr>
+        <tr><td>8th - 9th</td><td>2500</td></tr>
+        <tr><td>10th</td><td>3000</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="container text-center mt-5">
+    <h3 class="text-primary mb-3">Contact Us</h3>
+    <p><i class="fa fa-phone"></i> +91 99005 23755 | <i class="fa fa-envelope"></i> <span id="emailText">info@smartx.example</span></p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-icons mb-2">
+      <a id="fbLink" href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a id="instaLink" href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a id="ytLink" href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a id="waLink" href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a id="lnLink" href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+    </div>
+    <p>© <span id="year"></span> Smart-X Tuition Center — All Rights Reserved</p>
+  </footer>
+
+  <!-- Admin Button -->
+  <button class="admin-btn" data-toggle="modal" data-target="#adminModal"><i class="fa fa-user-cog"></i></button>
+
+  <!-- Admin Modal -->
+  <div class="modal fade" id="adminModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header"><h5>Admin Edit Panel</h5><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+        <div class="modal-body">
+          <input type="text" id="adminUser" class="form-control mb-2" placeholder="Username">
+          <input type="password" id="adminPass" class="form-control mb-3" placeholder="Password">
+          <div id="adminPanel" style="display:none;">
+            <label>Hero Title</label>
+            <input id="editHeroTitle" class="form-control mb-2">
+            <label>Hero Description</label>
+            <textarea id="editHeroDesc" class="form-control mb-2"></textarea>
+            <label>Hero Image</label>
+            <input type="file" id="editHeroImage" class="form-control mb-3" accept="image/*">
+            <label>Email</label>
+            <input id="editEmail" class="form-control mb-3">
+
+            <h6>Courses</h6>
+            <input id="editC1" class="form-control mb-2" placeholder="Basic Computer Title">
+            <input id="editC1fee" class="form-control mb-3" placeholder="Basic Computer Fee">
+            <input id="editC2" class="form-control mb-2" placeholder="Coding Title">
+            <input id="editC2fee" class="form-control mb-3" placeholder="Coding Fee">
+            <input id="editC3" class="form-control mb-2" placeholder="Cyber Security Title">
+            <input id="editC3fee" class="form-control mb-3" placeholder="Cyber Security Fee">
+
+            <h6 class="mt-4">Best Students</h6>
+            <div class="row">
+              <div class="col-md-6">
+                <input id="editA1name" class="form-control mb-1" placeholder="Student 1 Name">
+                <input id="editA1desc" class="form-control mb-1" placeholder="Student 1 Achievement">
+                <input type="file" id="editA1img" class="form-control mb-3" accept="image/*">
+              </div>
+              <div class="col-md-6">
+                <input id="editA2name" class="form-control mb-1" placeholder="Student 2 Name">
+                <input id="editA2desc" class="form-control mb-1" placeholder="Student 2 Achievement">
+                <input type="file" id="editA2img" class="form-control mb-3" accept="image/*">
+              </div>
+              <div class="col-md-6">
+                <input id="editA3name" class="form-control mb-1" placeholder="Student 3 Name">
+                <input id="editA3desc" class="form-control mb-1" placeholder="Student 3 Achievement">
+                <input type="file" id="editA3img" class="form-control mb-3" accept="image/*">
+              </div>
+              <div class="col-md-6">
+                <input id="editA4name" class="form-control mb-1" placeholder="Student 4 Name">
+                <input id="editA4desc" class="form-control mb-1" placeholder="Student 4 Achievement">
+                <input type="file" id="editA4img" class="form-control mb-3" accept="image/*">
+              </div>
+            </div>
+
+            <h6 class="mt-4">Social Links</h6>
+            <input id="editFb" class="form-control mb-2" placeholder="Facebook URL">
+            <input id="editInsta" class="form-control mb-2" placeholder="Instagram URL">
+            <input id="editYt" class="form-control mb-2" placeholder="YouTube URL">
+            <input id="editWa" class="form-control mb-2" placeholder="WhatsApp URL">
+            <input id="editLn" class="form-control mb-3" placeholder="LinkedIn URL">
+
+            <button class="btn btn-success w-100" id="saveChanges">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const USER="admin",PASS="smartx123";
+    document.getElementById("year").textContent=new Date().getFullYear();
+    const heroTitle=document.getElementById("heroTitle"),heroDesc=document.getElementById("heroDesc"),heroImg=document.getElementById("heroImage"),emailText=document.getElementById("emailText");
+
+    document.getElementById("adminPass").addEventListener("input",e=>{
+      if(document.getElementById("adminUser").value===USER&&e.target.value===PASS)
+        document.getElementById("adminPanel").style.display="block";
+      else document.getElementById("adminPanel").style.display="none";
+    });
+
+    document.getElementById("saveChanges").addEventListener("click",()=>{
+      heroTitle.textContent=document.getElementById("editHeroTitle").value;
+      heroDesc.textContent=document.getElementById("editHeroDesc").value;
+      emailText.textContent=document.getElementById("editEmail").value;
+
+      if(document.getElementById("editHeroImage").files[0]){
+        const r=new FileReader();
+        r.onload=e=>heroImg.src=e.target.result;
+        r.readAsDataURL(document.getElementById("editHeroImage").files[0]);
+      }
+
+      document.getElementById("c1title").textContent=document.getElementById("editC1").value;
+      document.getElementById("c1fee").textContent=document.getElementById("editC1fee").value;
+      document.getElementById("c2title").textContent=document.getElementById("editC2").value;
+      document.getElementById("c2fee").textContent=document.getElementById("editC2fee").value;
+      document.getElementById("c3title").textContent=document.getElementById("editC3").value;
+      document.getElementById("c3fee").textContent=document.getElementById("editC3fee").value;
+
+      for(let i=1;i<=4;i++){
+        const n=document.getElementById(`editA${i}name`),d=document.getElementById(`editA${i}desc`),img=document.getElementById(`editA${i}img`);
+        if(n)document.getElementById(`a${i}name`).textContent=n.value;
+        if(d)document.getElementById(`a${i}desc`).textContent=d.value;
+        if(img&&img.files[0]){
+          const r=new FileReader();
+          r.onload=e=>document.getElementById(`a${i}img`).src=e.target.result;
+          r.readAsDataURL(img.files[0]);
+        }
+      }
+
+      // Social links
+      document.getElementById("fbLink").href=document.getElementById("editFb").value;
+      document.getElementById("instaLink").href=document.getElementById("editInsta").value;
+      document.getElementById("ytLink").href=document.getElementById("editYt").value;
+      document.getElementById("waLink").href=document.getElementById("editWa").value;
+      document.getElementById("lnLink").href=document.getElementById("editLn").value;
+
+      const data={
+        heroImg:heroImg.src,
+        achievers:[1,2,3,4].map(i=>({
+          name:document.getElementById(`a${i}name`).textContent,
+          desc:document.getElementById(`a${i}desc`).textContent,
+          img:document.getElementById(`a${i}img`).src
+        })),
+        socials:{
+          fb:document.getElementById("fbLink").href,
+          insta:document.getElementById("instaLink").href,
+          yt:document.getElementById("ytLink").href,
+          wa:document.getElementById("waLink").href,
+          ln:document.getElementById("lnLink").href
+        }
+      };
+      localStorage.setItem("smartxData",JSON.stringify(data));
+      alert("Changes saved successfully!");
+    });
+
+    const saved=localStorage.getItem("smartxData");
+    if(saved){
+      const data=JSON.parse(saved);
+      if(data.heroImg)heroImg.src=data.heroImg;
+      if(data.achievers) data.achievers.forEach((a,i)=>{
+        const idx=i+1;
+        document.getElementById(`a${idx}name`).textContent=a.name;
+        document.getElementById(`a${idx}desc`).textContent=a.desc;
+        document.getElementById(`a${idx}img`).src=a.img;
+      });
+      if(data.socials){
+        document.getElementById("fbLink").href=data.socials.fb;
+        document.getElementById("instaLink").href=data.socials.insta;
+        document.getElementById("ytLink").href=data.socials.yt;
+        document.getElementById("waLink").href=data.socials.wa;
+        document.getElementById("lnLink").href=data.socials.ln;
+      }
+    }
+  </script>
+</body>
+</html>
