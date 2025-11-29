@@ -1,2 +1,1 @@
-# smartx-tuition1
-Web development1
+smart-X.html
